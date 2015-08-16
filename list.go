@@ -22,8 +22,12 @@ type list struct {
 	next  *list
 }
 
-func NewList() List {
-	return &list{}
+func NewList(items ...Item) List {
+	if len(items) == 0 {
+		return &list{}
+	}
+
+	return NewList(items[1:]...).Cons(items[0])
 }
 
 func (l *list) IsEmpty() bool {

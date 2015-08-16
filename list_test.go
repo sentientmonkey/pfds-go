@@ -35,8 +35,8 @@ func TestList(t *testing.T) {
 }
 
 func TestListAppend(t *testing.T) {
-	xs := NewList().Cons(2).Cons(1).Cons(0)
-	ys := NewList().Cons(5).Cons(4).Cons(3)
+	xs := NewList(0, 1, 2)
+	ys := NewList(3, 4, 5)
 
 	assert.Equal(t, "[0 1 2]", xs.String())
 	assert.Equal(t, "[3 4 5]", ys.String())
@@ -47,7 +47,7 @@ func TestListAppend(t *testing.T) {
 }
 
 func TestListUpdate(t *testing.T) {
-	xs := NewList().Cons(4).Cons(3).Cons(2).Cons(1).Cons(0)
+	xs := NewList(0, 1, 2, 3, 4)
 
 	assert.Equal(t, "[0 1 2 3 4]", xs.String())
 
@@ -59,4 +59,15 @@ func TestListUpdate(t *testing.T) {
 	_, err = xs.Update(5, 7)
 	assert.NotNil(t, err)
 	assert.Equal(t, "[0 1 2 3 4]", xs.String())
+}
+
+func TestListFromArray(t *testing.T) {
+	xs := NewList(0, 1, 2, 3, 4)
+	assert.Equal(t, "[0 1 2 3 4]", xs.String())
+
+	xs = NewList(0)
+	assert.Equal(t, "[0]", xs.String())
+
+	xs = NewList()
+	assert.Equal(t, "[]", xs.String())
 }
