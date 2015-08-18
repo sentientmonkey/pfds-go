@@ -21,3 +21,9 @@ func TestSet(t *testing.T) {
 
 	assert.Equal(t, "( 1 ( 2 ( 3 (( 5 ) 10 ))))", anotherSet.Insert(OrderedInt(5)).String())
 }
+
+func TestSetStringTest(t *testing.T) {
+	set := NewSet(OrderedString("a"), OrderedString("b"), OrderedString("c"))
+	assert.NotNil(t, set)
+	assert.Equal(t, "( a ( b ( c )))", set.String())
+}
