@@ -1,11 +1,14 @@
 package pfds
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type Ordered interface {
-	gt(Ordered) bool
-	lt(Ordered) bool
-	eq(Ordered) bool
+	Gt(Ordered) bool
+	Lt(Ordered) bool
+	Eq(Ordered) bool
 	String() string
 }
 
@@ -42,10 +45,10 @@ func (t *tree) Insert(x Ordered) Set {
 	if t.value == nil {
 		return Element(x)
 	}
-	if x.lt(t.value) {
+	if x.Lt(t.value) {
 		return Tree(t.value, t.left.Insert(x), t.right)
 	}
-	if x.gt(t.value) {
+	if x.Gt(t.value) {
 		return Tree(t.value, t.left, t.right.Insert(x))
 	}
 
@@ -56,10 +59,10 @@ func (t *tree) Member(x Ordered) bool {
 	if t.value == nil {
 		return false
 	}
-	if x.lt(t.value) {
+	if x.Lt(t.value) {
 		return t.left.Member(x)
 	}
-	if x.gt(t.value) {
+	if x.Gt(t.value) {
 		return t.right.Member(x)
 	}
 
@@ -70,5 +73,5 @@ func (t *tree) String() string {
 	if t.value == nil {
 		return ""
 	}
-	return fmt.Sprintf("(%v %v %v)", t.left, t.value, t.right)
+	return strings.TrimSpace(fmt.Sprintf("%v %v %v", t.left, t.value, t.right))
 }

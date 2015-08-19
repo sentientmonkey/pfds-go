@@ -11,15 +11,23 @@ func OrderedInt(i int) Ordered {
 	return &orderedInt{i}
 }
 
-func (a *orderedInt) lt(b Ordered) bool {
+func OrderedInts(ints ...int) []Ordered {
+	r := make([]Ordered, len(ints))
+	for i, anInt := range ints {
+		r[i] = OrderedInt(anInt)
+	}
+	return r
+}
+
+func (a *orderedInt) Lt(b Ordered) bool {
 	return a.i < b.(*orderedInt).i
 }
 
-func (a *orderedInt) gt(b Ordered) bool {
+func (a *orderedInt) Gt(b Ordered) bool {
 	return a.i > b.(*orderedInt).i
 }
 
-func (a *orderedInt) eq(b Ordered) bool {
+func (a *orderedInt) Eq(b Ordered) bool {
 	return a.i == b.(*orderedInt).i
 }
 
