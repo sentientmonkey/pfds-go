@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-type Item interface{}
-
 type List interface {
 	IsEmpty() bool
 	Cons(Item) List

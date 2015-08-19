@@ -5,13 +5,6 @@ import (
 	"strings"
 )
 
-type Ordered interface {
-	Gt(Ordered) bool
-	Lt(Ordered) bool
-	Eq(Ordered) bool
-	String() string
-}
-
 type Set interface {
 	Insert(Ordered) Set
 	Member(Ordered) bool
