@@ -19,7 +19,12 @@ func TestSet(t *testing.T) {
 	assert.True(t, anotherSet.Member(OrderedInt(10)))
 	assert.False(t, set.Member(OrderedInt(10)))
 
-	assert.Equal(t, "1 2 3 5 10", anotherSet.Insert(OrderedInt(5)).String())
+	sameSet := anotherSet.Insert(OrderedInt(10))
+	assert.Equal(t, anotherSet, sameSet)
+
+	unbalancedSet := anotherSet.Insert(OrderedInt(5))
+	assert.Equal(t, "1 2 3 5 10", unbalancedSet.String())
+	assert.True(t, unbalancedSet.Member(OrderedInt(5)))
 }
 
 func TestSetStringTest(t *testing.T) {

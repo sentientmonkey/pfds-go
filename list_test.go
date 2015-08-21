@@ -8,7 +8,6 @@ import (
 
 func TestList(t *testing.T) {
 	list := NewList()
-	assert.True(t, list.IsEmpty())
 
 	newList := list.Cons(1)
 	assert.True(t, list.IsEmpty())
@@ -70,4 +69,17 @@ func TestListFromArray(t *testing.T) {
 
 	xs = NewList()
 	assert.Equal(t, "[]", xs.String())
+}
+
+func TestEmptyList(t *testing.T) {
+	xs := NewList()
+	assert.True(t, xs.IsEmpty())
+
+	head, err := xs.Head()
+	assert.Nil(t, head)
+	assert.Error(t, err)
+
+	tail, err := xs.Tail()
+	assert.Nil(t, tail)
+	assert.Error(t, err)
 }

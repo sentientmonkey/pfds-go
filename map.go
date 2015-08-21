@@ -1,13 +1,14 @@
 package pfds
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 )
 
 type Map interface {
 	Bind(Ordered, Item) Map
-	Lookup(Ordered) Item
+	Lookup(Ordered) (Item, error)
 	String() string
 }
 
@@ -34,9 +35,9 @@ func (m *orderedMap) Bind(k Ordered, v Item) Map {
 	return &orderedMap{m.key, v, m.left, m.right}
 }
 
-func (m *orderedMap) Lookup(k Ordered) Item {
+func (m *orderedMap) Lookup(k Ordered) (Item, error) {
 	if m.value == nil {
-		return nil
+		return nil, errors.New("Could not find key")
 	}
 	if k.Lt(m.key) {
 		return m.left.Lookup(k)
@@ -45,7 +46,7 @@ func (m *orderedMap) Lookup(k Ordered) Item {
 		return m.right.Lookup(k)
 	}
 
-	return m.value
+	return m.value, nil
 }
 
 func (m *orderedMap) String() string {
